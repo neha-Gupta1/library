@@ -37,7 +37,7 @@ Output:
  - Status OK: list of books present
  - Status Internal Server Error : Server error
  
-**/books/id - POST**
+**/books - POST**
 
 Payload:
 
