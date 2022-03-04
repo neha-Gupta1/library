@@ -57,7 +57,9 @@ Output:
 
 **Steps:**
  - pull library .
- - run `sudo docker run --name mongodb -d -p 27017:27017 mongo`
- - run - `go run main.go`
+ - Run `kubectl apply -f kubernetes-deployment/mongo-service.yml`
+ - Run `kubectl apply -f kubernetes-deployment/mongo-statefulset.yml`
+ - Run `kubectl apply -f kubernetes-deployment/library-deployment.yml`
+
  - API server running on localhost:8000
  
