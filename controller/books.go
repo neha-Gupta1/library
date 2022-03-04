@@ -25,6 +25,7 @@ func GetBooks(w http.ResponseWriter, r *http.Request) {
 
 	cursor, err := database.Collection(utils.Books).Find(ctx, bson.M{})
 	if err != nil {
+		log.Println("collections could not be connected.")
 		http.Error(w, "Error while connecting to database", http.StatusInternalServerError)
 		return
 	}
@@ -32,6 +33,7 @@ func GetBooks(w http.ResponseWriter, r *http.Request) {
 	var books []models.Book
 	err = cursor.All(ctx, &books)
 	if err != nil {
+		log.Println("collections could not find data: ",err)
 		http.Error(w, "Error while finding books", http.StatusInternalServerError)
 		return
 	}
