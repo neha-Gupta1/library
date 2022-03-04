@@ -15,7 +15,7 @@ import (
 
 func GetBooks(w http.ResponseWriter, r *http.Request) {
 
-	database, client, ctx, cancel, err := models.Connect(utils.DbURL)
+	database, client, ctx, cancel, err := models.Connect(utils.GetDBURL())
 	if err != nil {
 		http.Error(w, "Error while connecting to database", http.StatusInternalServerError)
 		return
@@ -45,7 +45,7 @@ func GetBooks(w http.ResponseWriter, r *http.Request) {
 func GetBook(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
-	database, client, ctx, cancel, err := models.Connect(utils.DbURL)
+	database, client, ctx, cancel, err := models.Connect(utils.GetDBURL())
 	if err != nil {
 		log.Println("error: could not connect to Database")
 		http.Error(w, "Error while connecting to database", http.StatusInternalServerError)
@@ -87,7 +87,7 @@ func CreateBook(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	database, client, ctx, cancel, err := models.Connect(utils.DbURL)
+	database, client, ctx, cancel, err := models.Connect(utils.GetDBURL())
 	if err != nil {
 		log.Println("error: could not connect to Database")
 		http.Error(w, "Error while connecting to database", http.StatusInternalServerError)

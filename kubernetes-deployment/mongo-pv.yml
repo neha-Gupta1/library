@@ -1,0 +1,14 @@
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: mongodb
+#   labels:
+#       role: mongo
+# spec:
+#   capacity:
+#     storage: 2Gi
+#   accessModes:
+#   - ReadWriteOnce
+#   hostPath:
+#     path: /home/nehagupta/go/src/github.com/library/data/db
+#     type: Directory

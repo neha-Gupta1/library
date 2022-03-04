@@ -1,8 +1,8 @@
 package utils
 
-// List of constants used
-const (
-	DbURL = "mongodb://localhost:27017"
+import (
+	"fmt"
+	"os"
 )
 
 // Database constants
@@ -10,3 +10,9 @@ var (
 	Library = "library"
 	Books   = "books"
 )
+
+func GetDBURL() string {
+	mongoHost := os.Getenv("MONGOHOST")
+	return fmt.Sprintf("mongodb://" + mongoHost + ":27017")
+
+}

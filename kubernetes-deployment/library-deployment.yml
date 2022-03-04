@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: library
+  labels: 
+    app: library
+spec:
+  selector:
+    matchLabels:
+      app: library
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: library
+    spec:
+      containers:
+      - name: library
+        image: neha16/library:latest
+        env:
+        - name: MONGOHOST
+          valueFrom:
+            configMapKeyRef:
+              name: library-config
+              key: MONGOHOST
+        ports:
+        - containerPort: 8000
+
+# loadbalancer don't work on local. So used nord-port instead of it.
+# to access the port,
+# kubectl get nodes -o yaml - check for address. Now hit API on,
+# http://172.18.0.2:30768/books - GET
+#  docker build --tag neha16/library .
+# docker push neha16/library
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: library
+  labels: 
+    app: library
+spec:
+  type: NodePort
+  selector:
+    app: library
+
+  ports:
+    - port: 8000
+      targetPort: 8000
+
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: library-config
+data:
+  MONGOHOST: mongodb-service

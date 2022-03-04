@@ -15,7 +15,7 @@ import (
 )
 
 func setupData() {
-	db, _, ctx, _, err := models.Connect(utils.DbURL)
+	db, _, ctx, _, err := models.Connect(utils.GetDBURL())
 	if err != nil {
 		log.Fatal("Could not setup db")
 	}

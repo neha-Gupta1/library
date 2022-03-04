@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongod
+spec:
+  selector:
+    matchLabels:
+      role: mongo
+  serviceName: mongodb-service
+  replicas: 1
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        role: mongo
+    spec:
+      containers:
+        - name: mongod-container
+          image: mongo
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+          - name: mongodb-persistent-storage-claim
+            mountPath: /data/db
+  volumeClaimTemplates:
+  - metadata:
+      name: mongodb-persistent-storage-claim
+      annotations:
+        volume.beta.kubernetes.io/storage-class: "standard"
+    spec:
+      accessModes: [ "ReadWriteOnce" ] # only one PV connects to a volume for read and write. Rest fail to attach to the volume.
+      resources:
+        requests:
+          storage: 1Gi
+
+
