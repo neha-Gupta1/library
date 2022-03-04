@@ -61,5 +61,8 @@ Output:
  - Run `kubectl apply -f kubernetes-deployment/mongo-statefulset.yml`
  - Run `kubectl apply -f kubernetes-deployment/library-deployment.yml`
 
- - API server running on localhost:8000
+ - API server running on node's IP:service's host port
+ - To get the node's IP run - `kubectl get nodes -o yaml - check for address`
+ - To get the service's port run ` kubectl get service library` and get the node port.
+ - example - `http://172.18.0.2:30768/books - GET` 
  
